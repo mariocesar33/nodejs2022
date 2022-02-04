@@ -10,9 +10,7 @@ export class CreateProductUseCase {
     // verificar se o produto já existe
     const productExist = await prisma.products.findFirst({
       where: {
-        productname: {
-          mode: "insensitive"
-        }
+        productname
       }
     });
 
