@@ -8,11 +8,15 @@ interface ICreateProduct {
 export class CreateProductUseCase {
   async execute({productname, price}: ICreateProduct) {
     // verificar se o produto já existe
-    const productExist = await prisma.products.findFirst({
+    const productExist = await prisma.products.findMany({
       where: {
-        productname
+        productname: {
+          mode: "insensitive"
+        }
       }
     });
+
+    console.log(productExist)!
 
     if(productExist) {
       throw new Error("Produto já registrado");
